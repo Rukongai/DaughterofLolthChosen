@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<save>
+	<version major="4" minor="0" revision="9" build="320" />
+	<region id="Templates">
+		<node id="Templates">
+			<children>
+				<node id="GameObjects">
+					<attribute id="MapKey" type="FixedString" value="826dda71-d254-4d90-8717-4d07532eda8c" />
+					<attribute id="Name" type="LSString" value="DOL_BOOK_OBJ_HelloMinthy" />
+					<attribute id="LevelName" type="FixedString" value="" />
+					<attribute id="Type" type="FixedString" value="item" />
+					<attribute id="ParentTemplateId" type="FixedString" value="db5ce977-d4be-41a3-968a-e187a83be826" />
+					<attribute id="DisplayName" type="TranslatedString" handle="hd475ea0bg823eg46e8g8cdeg4b02548dda26" version="1" />
+					<attribute id="Description" type="TranslatedString" handle="hfceb1073gb022g4dc5g9ddagbf0a6e83f765" version="1" />
+					<attribute id="Stats" type="FixedString" value="DOL_BOOK_OBJ_HelloMinthy" />
+					<children>
+						<node id="Tags">
+							<children>
+								<node id="Tag">
+									<attribute id="Object" type="guid" value="b148cfca-53d8-4b73-52b0-08de4a395e23" />
+								</node>
+							</children>
+						</node>
+						<node id="OnUsePeaceActions">
+							<children>
+								<node id="Action">
+									<attribute id="ActionType" type="int32" value="11" />
+									<children>
+										<node id="Attributes">
+											<attribute id="Animation" type="FixedString" value="" />
+											<attribute id="Conditions" type="LSString" value="" />
+											<attribute id="BookId" type="FixedString" value="DOL_BOOK_OBJ_HelloMinthy" />
+										</node>
+									</children>
+								</node>
+							</children>
+						</node>
+					</children>
+				</node>
+			</children>
+		</node>
+	</region>
+</save>

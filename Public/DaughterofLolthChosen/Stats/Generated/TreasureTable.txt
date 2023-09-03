@@ -1,0 +1,20 @@
+new treasuretable "GOB_Minthara_Chest"
+CanMerge 1
+new subtable "1,1"
+object category "I_MAG_ChargedLightning_ElectricSurface_Boots",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_GOB_DrowCommanderMace",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_GOB_DrowCommander_Leather_Armor",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_GOB_DrowCommander_Leather_Gloves",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_MAG_Mobility_MomentumOnDash_Boots",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_ARM_Underwear_Minthara",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_ARM_Camp_Body_Minthara",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_ARM_Camp_Shoes_Minthara",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_DOL_BOOK_OBJ_HelloMinthy",1,0,0,0,0,0,0,0

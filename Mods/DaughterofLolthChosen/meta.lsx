@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="0" revision="6" build="5"/>
+    <region id="Config">
+        <node id="root">
+            <children>
+                <node id="Dependencies"/>
+                <node id="ModuleInfo">
+                    <attribute id="UUID" type="FixedString" value="e64e2e53-92c3-444e-a374-0d6638ed4e99"/>
+                    <attribute id="Folder" type="LSString" value="DaughterofLolthChosen"/>
+                    <attribute id="Name" type="LSString" value="Daughter of Lolth - Chosen Path"/>
+                    <attribute id="Description" type="LSString" value="Adopt a rehabilitation drow today"/>
+                    <attribute id="Author" type="LSString" value="Rukongai"/>
+                    <attribute id="NumPlayers" type="uint8" value="4"/>
+                    <attribute id="Tags" type="LSString" value=""/>
+                    <attribute id="Type" type="FixedString" value="Add-on"/>
+                    <attribute id="Version64" type="int64" value="72057600480378880"/>
+                    <attribute id="MD5" type="LSString" value=""/>
+                    <attribute id="CharacterCreationLevelName" type="FixedString" value=""/>
+                    <attribute id="LobbyLevelName" type="FixedString" value=""/>
+                    <attribute id="MainMenuBackgroundVideo" type="FixedString" value=""/>
+                    <attribute id="MenuLevelName" type="FixedString" value=""/>
+                    <attribute id="PhotoBooth" type="FixedString" value=""/>
+                    <attribute id="StartupLevelName" type="FixedString" value=""/>
+                    <children>
+                        <node id="PublishVersion">
+                            <attribute id="Version64" type="int64" value="72057600480378880"/>
+                        </node>
+                        <node id="Scripts"/>
+                        <node id="TargetModes">
+                            <children>
+                                <node id="Target">
+                                    <attribute id="Object" type="FixedString" value="Story"/>
+                                </node>
+                            </children>
+                        </node>
+                    </children>
+                </node>
+            </children>
+        </node>
+    </region>
+</save>

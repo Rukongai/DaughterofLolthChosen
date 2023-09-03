@@ -1,0 +1,7 @@
+new entry "DOL_BOOK_OBJ_HelloMinthy"
+type "Object"
+using "OBJ_Book"
+data "RootTemplate" "826dda71-d254-4d90-8717-4d07532eda8c"
+data "ValueOverride" "311"
+data "Rarity" "VeryRare"
+data "Vitality" "25"
