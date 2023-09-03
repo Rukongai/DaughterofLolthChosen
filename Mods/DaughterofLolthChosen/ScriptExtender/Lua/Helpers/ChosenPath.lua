@@ -6,7 +6,7 @@ PersistentVars = {}
 PersistentVars['dolcpdebug'] = 0
 PersistentVars['dllogging'] = 0
 Minthy = "S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"
-_P("Mod Loaded: Daughter of Lolth - Chosen Path - v2.0.5")
+_P("Mod Loaded: Daughter of Lolth - Chosen Path - v2.0.7")
 
 Ext.Osiris.RegisterListener("SavegameLoaded", 0, "after", function ()
     if (Ext.Mod.IsModLoaded("5c9122aa-8140-4b2d-8300-94405a0e0776")) then
@@ -91,7 +91,9 @@ function BugChecks()
     if Osi.CanJoinCombat(Minthy) == 0 then Osi.SetCanJoinCombat(Minthy, 1) ; Doldb("Fixing Minthara Can Join Combat") end
     if Osi.IsInteractionDisabled(Minthy) == 1 then Osi.SetCanInteract(Minthy, 1); Doldb("Fixing Interaction Disabled") end
     if PersistentVars['MinthyRan'] == 1 and not next(deadgobs) then AlreadyDead(); Doldb("Fixing stuck Minthara quest state") end
+    if next(Osi.DB_PermaDefeated:Get(Minthy)) and next(deadgobs) and PersistentVars['Act2Started'] ~= 1 then AlreadyDead(); Doldb("Minthara already dead in Act 1, doin magic") end
     if PersistentVars['dolcpdebug'] ~= 1 then; FixPixieBuff(); end
+    if PersistentVars['Act2Started'] then YouSawNothing() end
     StuckQuest()
 end
 
@@ -107,6 +109,10 @@ function StuckQuest()
     end
     if next(Osi.DB_GlobalFlag:Get("GOB_State_LeadersAreDead_a1c5b01f-4b7f-47ab-82b0-d24d9c6d8bc6")) then
         Doldb("Goblin Leaders are dead")
+        return
+    end
+    if next(Osi.DB_GlobalFlag:Get("GOB_DrowCommander_Event_RaidersLeftForAttack_ce12e8de-2922-4a2b-843b-0494833b8480")) then
+        Doldb("Minthara left for raid")
         return
     end
     for _, j in ipairs(leaders) do
@@ -203,7 +209,7 @@ function EquipDrowPriestess()
     local x, y, z = Osi.GetPosition(Minthy)
     Osi.Equip(Minthy, Osi.CreateAt("ARM_Underwear_DP_1e574070-a448-4c33-b85a-b9b05574aa36", x, y, z, 1, 0, ""))
     Osi.Equip(Minthy, Osi.CreateAt("ARM_Body_Camp_DP_2ed0e8ef-a002-4b36-afee-9ce730948a20", x, y, z, 1, 0, ""))
-    Osi.SetArmourSet(Minthy, "Vanity")
+    Osi.SetArmourSet(Minthy, 1)
 end
 
 --@Minthara Health Tracker
