@@ -9,8 +9,8 @@ Minthy = "S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"
 _P("Mod Loaded: Daughter of Lolth - Chosen Path - v2.0.3")
 
 Ext.Osiris.RegisterListener("SavegameLoaded", 0, "after", function ()
-    _P("Detected Daughter of Lolth - Minthara Ring mod installed. Please remove this mod before continuing")
     if (Ext.Mod.IsModLoaded("5c9122aa-8140-4b2d-8300-94405a0e0776")) then
+        _P("Detected Daughter of Lolth - Minthara Ring mod installed. Please remove this mod before continuing")
         MessageBox("You currently have 'Daughter of Lolth - Minthara' installed. These two mods are incompatible and may not be run together. This mod will be disabled. Please remove one or the other.")
         return
     end
