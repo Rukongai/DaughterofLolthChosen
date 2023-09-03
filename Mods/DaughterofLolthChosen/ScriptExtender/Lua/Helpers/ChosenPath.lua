@@ -117,7 +117,7 @@ function StuckQuest()
                 Purgatory()
                 return
             end
-            Osi.die(j)
+            -- Osi.die(j)
         end
     end
 end
