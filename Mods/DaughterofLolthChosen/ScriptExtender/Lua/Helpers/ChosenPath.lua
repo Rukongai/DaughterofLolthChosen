@@ -4,9 +4,9 @@
 
 PersistentVars = {}
 PersistentVars['dolcpdebug'] = 0
-PersistentVars['dllogging'] = 1
+PersistentVars['dllogging'] = 0
 Minthy = "S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"
-_P("Mod Loaded: Daughter of Lolth - Chosen Path - v2.0.4")
+_P("Mod Loaded: Daughter of Lolth - Chosen Path - v2.0.5")
 
 Ext.Osiris.RegisterListener("SavegameLoaded", 0, "after", function ()
     if (Ext.Mod.IsModLoaded("5c9122aa-8140-4b2d-8300-94405a0e0776")) then
