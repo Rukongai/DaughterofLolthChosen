@@ -36,7 +36,7 @@ function ModInit()
         PersistentVars['DenVictoryFlag'] = Osi.GetFlag("DEN_AttackOnDen_State_DenVictory_71c7f23e-3ff1-c9b8-3ef5-d75fa1b42c8d", GetHostCharacter())
         Doldb("DenVictoryFlag set on load to " .. PersistentVars['DenVictoryFlag'])
     end
-    if PersistentVars['MinRecruited'] == nil then
+    if PersistentVars['MinRecruited'] ~= 1 then
         if Osi.DB_PartOfTheTeam:Get(Minthy) == Minthy then
             PersistentVars['MinRecruited'] = 1
             Doldb("Minthara set team on load")
@@ -90,6 +90,7 @@ function BugChecks()
     if Osi.CanFight(Minthy) == 0 then Osi.SetCanFight(Minthy, 1); Doldb("Fixing Minthara Can Fight") end
     if Osi.CanJoinCombat(Minthy) == 0 then Osi.SetCanJoinCombat(Minthy, 1) ; Doldb("Fixing Minthara Can Join Combat") end
     if Osi.IsInteractionDisabled(Minthy) == 1 then Osi.SetCanInteract(Minthy, 1); Doldb("Fixing Interaction Disabled") end
+    if PersistentVars['MinRecruited'] == 1 then; Doldb("Minthara recruited") return end
     if PersistentVars['MinthyRan'] == 1 and not next(deadgobs) then AlreadyDead(); Doldb("Fixing stuck Minthara quest state") end
     if next(Osi.DB_PermaDefeated:Get(Minthy)) and next(deadgobs) and PersistentVars['Act2Started'] ~= 1 then AlreadyDead(); Doldb("Minthara already dead in Act 1, doin magic") end
     if PersistentVars['dolcpdebug'] ~= 1 then; FixPixieBuff(); end
