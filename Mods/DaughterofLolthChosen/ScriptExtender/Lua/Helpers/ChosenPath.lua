@@ -93,7 +93,7 @@ function BugChecks()
     if PersistentVars['MinRecruited'] == 1 then; Doldb("Minthara recruited") return end
     if PersistentVars['MinthyRan'] == 1 and not next(deadgobs) then AlreadyDead(); Doldb("Fixing stuck Minthara quest state") end
     if next(Osi.DB_PermaDefeated:Get(Minthy)) and next(deadgobs) and PersistentVars['Act2Started'] ~= 1 then AlreadyDead(); Doldb("Minthara already dead in Act 1, doin magic") end
-    if PersistentVars['dolcpdebug'] ~= 1 then; FixPixieBuff(); end
+    if PersistentVars['dolcpdebug'] == 0 then; FixPixieBuff(); end
     if PersistentVars['Act2Started'] then YouSawNothing() end
     StuckQuest()
 end
