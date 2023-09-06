@@ -25,6 +25,7 @@ end)
 
 --@Check for pvars and do bug checks
 function ModInit()
+    local mincamp = Osi.DB_GlobalFlag:Get("ORI_Minthara_State_MintharaToCamp_4446c152-0902-4cc2-9990-7cb412a76051")
     if PersistentVars['Act2Started'] == nil then
         local act2 = Osi.DB_GlobalFlag:Get("VISITEDREGION_SCL_Main_A_f6e72539-9bc6-42e1-a20f-390f3a17ad8d")
         if next(act2) then
@@ -37,6 +38,10 @@ function ModInit()
         Doldb("DenVictoryFlag set on load to " .. PersistentVars['DenVictoryFlag'])
     end
     if PersistentVars['MinRecruited'] ~= 1 then
+        if next(mincamp) then PersistentVars['MinRecruited'] = 1;
+            Osi.DB_PartOfTheTeam(Minthy)
+            Doldb("Another recruitment check");
+        end
         if next(Osi.DB_PartOfTheTeam:Get(Minthy)) then
             PersistentVars['MinRecruited'] = 1
             Doldb("Minthara set team on load")
