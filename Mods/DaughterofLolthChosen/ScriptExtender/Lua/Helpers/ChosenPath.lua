@@ -4,9 +4,9 @@
 
 PersistentVars = {}
 PersistentVars['dolcpdebug'] = 0
-PersistentVars['dllogging'] = 0
+PersistentVars['dllogging'] = 1
 Minthy = "S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"
-_P("Mod Loaded: Daughter of Lolth - Chosen Path - v2.0.8")
+_P("Mod Loaded: Daughter of Lolth - Chosen Path - v2.1.0")
 
 Ext.Osiris.RegisterListener("SavegameLoaded", 0, "after", function ()
     if (Ext.Mod.IsModLoaded("5c9122aa-8140-4b2d-8300-94405a0e0776")) then
@@ -37,7 +37,7 @@ function ModInit()
         Doldb("DenVictoryFlag set on load to " .. PersistentVars['DenVictoryFlag'])
     end
     if PersistentVars['MinRecruited'] ~= 1 then
-        if Osi.DB_PartOfTheTeam:Get(Minthy) == Minthy then
+        if next(Osi.DB_PartOfTheTeam:Get(Minthy)) then
             PersistentVars['MinRecruited'] = 1
             Doldb("Minthara set team on load")
         else
@@ -62,13 +62,17 @@ function Flagdump()
     local minthyppd = Osi.DB_PreventPermaDefeated:Get(Minthy)
     local minthypermadead = Osi.DB_PermaDefeated:Get(Minthy)
     local minthydead = Osi.DB_Dead:Get(Minthy)
-    Doldb("====Persistent Variables====")
+    _P("\n")
+    _P("====Persistent Variables====\n")
     Doldb("Persistent DenVictoryFlag set to " .. tostring(PersistentVars['DenVictoryFlag']))
     Doldb("Actual DenVictory Flag: " .. tostring(Osi.GetFlag("DEN_AttackOnDen_State_DenVictory_71c7f23e-3ff1-c9b8-3ef5-d75fa1b42c8d", GetHostCharacter())))
     Doldb("Ketheric Left Audience: " .. tostring(PersistentVars['kethericdone']))
     Doldb("Minthara Recruited: " .. tostring(PersistentVars['MinRecruited']))
     Doldb("Act 2: " .. tostring(PersistentVars['Act2Started']))
-    Doldb("=============================")
+    _P("\n")
+    _P("=====Pvar Full Dump=========")
+    _D(PersistentVars)
+    _P("=============================\n")
     if next(minthypermadead) then Doldb("Minthara in PermaDefeated DB") end
     if not next(minthypermadead) then Doldb("Minthara not in PermaDefeated DB") end
     if next(minthyppd) then Doldb("Minthara in Prevent PermaDefeat DB") end
@@ -90,11 +94,14 @@ function BugChecks()
     if Osi.CanFight(Minthy) == 0 then Osi.SetCanFight(Minthy, 1); Doldb("Fixing Minthara Can Fight") end
     if Osi.CanJoinCombat(Minthy) == 0 then Osi.SetCanJoinCombat(Minthy, 1) ; Doldb("Fixing Minthara Can Join Combat") end
     if Osi.IsInteractionDisabled(Minthy) == 1 then Osi.SetCanInteract(Minthy, 1); Doldb("Fixing Interaction Disabled") end
-    if PersistentVars['MinRecruited'] == 1 then; Doldb("Minthara recruited") return end
-    if PersistentVars['MinthyRan'] == 1 and not next(deadgobs) then AlreadyDead(); Doldb("Fixing stuck Minthara quest state") end
-    if next(Osi.DB_PermaDefeated:Get(Minthy)) and next(deadgobs) and PersistentVars['Act2Started'] ~= 1 then AlreadyDead(); Doldb("Minthara already dead in Act 1, doin magic") end
     if PersistentVars['dolcpdebug'] == 0 then; FixPixieBuff(); end
     if PersistentVars['Act2Started'] then YouSawNothing() end
+    if PersistentVars['MinRecruited'] == 1 then;
+        Doldb("Minthara recruited - Bugcheck return")
+        return
+    end
+    if PersistentVars['MinthyRan'] == 1 and not next(deadgobs) then AlreadyDead(); Doldb("Fixing stuck Minthara quest state") end
+    if next(Osi.DB_PermaDefeated:Get(Minthy)) and next(deadgobs) and PersistentVars['Act2Started'] ~= 1 then AlreadyDead(); Doldb("Minthara already dead in Act 1, doin magic") end
     StuckQuest()
 end
 
@@ -121,6 +128,7 @@ function StuckQuest()
         local counters = Osi.DB_GLO_DefeatCounter_State:Get(j, "GOB_GoblinHunt_Leaders", "Active")
         if next(counters) and not next(region) then
             if j == Minthy then
+                Doldb("Minthara sent to Purgatory by way of Goblin Leader bugfix")
                 Purgatory()
                 return
             end
@@ -150,12 +158,13 @@ end
 --@Debug enabled printer
 function Doldb(msg)
     if PersistentVars['dllogging'] == 1 then
-        _P(msg)
+        _P(string.format("[DoL - ChosenPath]: %s", msg))
     end
 end
 
 --@Crime Fix 
 function YouSawNothing()
+    Doldb("Clearing Guardkiller Database of Minthara entries")
     Osi.DB_WitnessKiller_SawAsShape:Delete(Minthy, GetHostCharacter(), nil, nil, nil, nil)
     Osi.DB_Crime_GuardKiller_Witness:Delete(Minthy, GetHostCharacter(), nil, nil, nil, nil)
     Osi.DB_CRIME_GuardKiller_WitnessStatus:Delete(Minthy)
@@ -215,6 +224,9 @@ end
 
 --@Minthara Health Tracker
 Ext.Osiris.RegisterListener("HitpointsChanged", 2, "after", function(guid, hppct)
+    if PersistentVars['MinRecruited'] == 1 then
+        return
+    end
     if PersistentVars['Act2Started'] ~= 1 then
         if guid == Minthy and PersistentVars['MinthyRan'] ~= 1 and PersistentVars['MinRecruited'] ~=1 then
             Doldb(string.format("target %s hp changed to %s.", guid, hppct))
@@ -259,6 +271,9 @@ end)
 
 --@Recruitment checker for Minthara
 Ext.Osiris.RegisterListener("PROC_DisappearOutOfSight", 4, "after", function (char, speed, int, dest)
+    if next(DB_PartOfTheTeam:Get(Minthy)) then
+        return
+    end
     if PersistentVars['MinRecruited'] ~=1 then
         if char == Minthy and dest == "MOO_MintharaFate_ToCamp" then
             Doldb("Minthara Recruited")
